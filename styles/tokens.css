@@ -1,0 +1,151 @@
+/* ==========================================================================
+   StuGro design tokens
+   --------------------------------------------------------------------------
+   THIS IS THE RE-SKIN FILE. Every color, type size, radius, shadow, spacing
+   rhythm and motion curve used by components comes from here. Components
+   never hard-code hex values, so changing a value below changes the site.
+
+   - Raw tokens live on :root as CSS custom properties (usable anywhere,
+     including charts, which read them at runtime via lib/tokens.ts).
+   - The @theme block maps them onto Tailwind utilities, e.g.
+     --color-ink  ->  bg-ink / text-ink / border-ink
+     --text-display-xl -> text-display-xl
+   Fonts are loaded in app/layout.tsx and exposed as --font-display-src /
+   --font-body-src; swap the families there.
+   ========================================================================== */
+
+:root {
+  /* ---- Brand palette (sampled from brand_assets/logo-source.png) ------- */
+  --ink: #0f2f45;          /* logo navy: primary dark surface + body text   */
+  --ink-deep: #0a2232;     /* one layer below ink: footer, floating dark    */
+  --ink-soft: #1c4461;     /* one layer above ink: raised cards on dark     */
+  --mint: #77be9b;         /* logo green: accent on dark surfaces           */
+  --mint-bright: #9ad8b8;  /* hover / glow on dark                          */
+  --grow: #1e7a55;         /* accessible green for text + fills on light    */
+  --grow-deep: #155c40;    /* pressed / hover of grow                       */
+  --paper: #f2f5f1;        /* page base (cool, mint-tinted white)           */
+  --paper-raised: #ffffff; /* elevated surface on paper                     */
+  --paper-sunk: #e6ece6;   /* inset wells, table stripes                    */
+  --line: #cfd9d2;         /* hairlines on paper                            */
+  --line-dark: #2a4d66;    /* hairlines on ink                              */
+  --muted: #4d6273;        /* secondary text on paper  (AA on --paper)      */
+  --muted-dark: #a9bccb;   /* secondary text on ink    (AA on --ink)        */
+  --loss: #c4473a;         /* negative numbers only                         */
+  --loss-dark: #f08a7e;    /* negative numbers on ink                       */
+  --focus: #1e7a55;        /* focus ring on light                           */
+  --focus-dark: #9ad8b8;   /* focus ring on dark                            */
+
+  /* ---- Charts -------------------------------------------------------
+     Validated with the dataviz palette checker (light surface): lightness
+     band, chroma floor, CVD + normal-vision separation, 3:1 contrast all pass.
+     The benchmark line is also dashed and both lines are direct-labeled.
+     Allocation uses a single hue (--grow) as a ranked bar list, no categories. */
+  --chart-portfolio: #1e8a5c;
+  --chart-benchmark: #5a6fb0;
+  --chart-grid: #dde5df;
+  --chart-axis: #4d6273;
+
+  /* ---- Third-party platform colors (their brands, not ours) ---------- */
+  --tiktok-ink: #010101;
+  --tiktok-cyan: #25f4ee;
+  --tiktok-red: #fe2c55;
+  --youtube-red: #ff0033;
+  --instagram-gradient: linear-gradient(45deg, #feda75 0%, #fa7e1e 25%, #d62976 50%, #962fbf 75%, #4f5bd5 100%);
+
+  /* ---- Spacing rhythm ------------------------------------------------- */
+  --gutter: clamp(1rem, 4vw, 2.5rem);            /* page side padding       */
+  --space-section: clamp(5rem, 11vw, 10rem);     /* between major sections  */
+  --space-block: clamp(2.5rem, 5vw, 4.5rem);     /* between blocks in one   */
+  --space-stack: 1.5rem;                         /* between related items   */
+  --container: 76rem;
+  --container-narrow: 46rem;
+
+  /* Radius, shadow and easing tokens live in @theme below (they double
+     as Tailwind utilities: rounded-md, shadow-float, ease-out ...). */
+
+  /* ---- Motion durations --------------------------------------------- */
+  --dur-press: 140ms;
+  --dur-fast: 200ms;
+  --dur-base: 320ms;
+  --dur-slow: 700ms;
+
+  /* ---- Texture -------------------------------------------------------- */
+  --grain-opacity: 0.07;
+}
+
+@theme static {
+  /* Colors -> bg-*, text-*, border-*, fill-*, stroke-* */
+  --color-ink: var(--ink);
+  --color-ink-deep: var(--ink-deep);
+  --color-ink-soft: var(--ink-soft);
+  --color-mint: var(--mint);
+  --color-mint-bright: var(--mint-bright);
+  --color-grow: var(--grow);
+  --color-grow-deep: var(--grow-deep);
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-paper-sunk: var(--paper-sunk);
+  --color-line: var(--line);
+  --color-line-dark: var(--line-dark);
+  --color-muted: var(--muted);
+  --color-muted-dark: var(--muted-dark);
+  --color-loss: var(--loss);
+  --color-loss-dark: var(--loss-dark);
+
+  /* Fonts (sources injected by next/font in app/layout.tsx) */
+  --font-display: var(--font-display-src), "Arial Narrow", system-ui, sans-serif;
+  --font-body: var(--font-body-src), system-ui, sans-serif;
+
+  /* Type scale: a 1.25 (major third) body scale and a steeper display scale.
+     Display sizes are fluid; tracking tightens as size grows. */
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.45;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.6;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.7;
+  --text-lead: clamp(1.1875rem, 1.05rem + 0.5vw, 1.375rem);
+  --text-lead--line-height: 1.6;
+  --text-title: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.015em;
+  --text-display-sm: clamp(2rem, 1.5rem + 2vw, 3rem);
+  --text-display-sm--line-height: 1;
+  --text-display-sm--letter-spacing: -0.025em;
+  --text-display-md: clamp(2.75rem, 1.8rem + 4vw, 5rem);
+  --text-display-md--line-height: 0.95;
+  --text-display-md--letter-spacing: -0.03em;
+  --text-display-lg: clamp(3.25rem, 1.6rem + 7vw, 8rem);
+  --text-display-lg--line-height: 0.88;
+  --text-display-lg--letter-spacing: -0.035em;
+  --text-display-xl: clamp(3.75rem, 1rem + 11vw, 11.5rem);
+  --text-display-xl--line-height: 0.84;
+  --text-display-xl--letter-spacing: -0.04em;
+
+  /* ---- Radius hierarchy (small things round less than big things) ---- */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  /* ---- Depth: base -> raised -> floating. Navy-tinted, layered ------- */
+  --shadow-raised:
+    0 1px 1px rgb(15 47 69 / 0.04),
+    0 2px 4px rgb(15 47 69 / 0.04),
+    0 8px 16px -4px rgb(15 47 69 / 0.06);
+  --shadow-float:
+    0 1px 2px rgb(15 47 69 / 0.05),
+    0 6px 12px -2px rgb(15 47 69 / 0.08),
+    0 24px 48px -12px rgb(15 47 69 / 0.18);
+  --shadow-float-dark:
+    0 1px 2px rgb(0 0 0 / 0.2),
+    0 12px 24px -6px rgb(0 0 0 / 0.3),
+    0 32px 64px -16px rgb(5 20 30 / 0.55);
+  --shadow-glow: 0 0 0 1px rgb(119 190 155 / 0.35), 0 12px 40px -8px rgb(119 190 155 / 0.35);
+
+  /* ---- Motion curves --------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);       /* entering, responding  */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);   /* moving on screen      */
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);    /* sheets, mobile nav    */
+}
